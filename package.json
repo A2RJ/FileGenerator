@@ -1,0 +1,20 @@
+{
+  "name": "generator",
+  "version": "1.0.0",
+  "description": "Generator with PHP and JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "php",
+    "and",
+    "js",
+    "generator"
+  ],
+  "author": "a2rj",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^9.0.1"
+  }
+}
