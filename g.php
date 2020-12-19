@@ -1,6 +1,7 @@
 <?php
 $options = getopt("M:");
-$file = $options['M'] . '.php';
+$exetension = 'yourFileExetension';
+$file = $options['M'] . $exetension;
 $current = file_get_contents($file);
 $template = "will generate ".$options['M'];
 $current .= $template;
