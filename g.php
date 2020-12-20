@@ -1,6 +1,7 @@
 <?php
 // php G.php -MVC=yourFileName
 // https://github.com/nette/php-generator
+// generate file php berdasarkan inputName
 require 'vendor/autoload.php';
 
 use Codedungeon\PHPCliColors\Color;
@@ -15,8 +16,8 @@ if (sizeof($name) >= 3 and $name['C'] !== "") {
 
     $namespace = new Nette\PhpGenerator\PhpNamespace('Generator');
 
-    $namespace->addUse('App\Http\Controllers\Controller');
-    $namespace->addUse('App\Models\Generator');
+    $namespace->addUse('CodeIgniter\Controller;');
+    $namespace->addUse('App\Models\Generator;');
 
     $class = $namespace->addClass($controllerName)
         ->addComment('@Created by github.com/A2RJ')
@@ -28,30 +29,41 @@ if (sizeof($name) >= 3 and $name['C'] !== "") {
     // ->addProperty('Demo');
     // ->addTrait('Bar\AliasedClass');
 
-    $class->addMethod('__construct')
+    $class->addMethod('index')
+    ->addComment("Description of class.\n")
+    ->addComment('@Created by github.com/A2RJ')
+    ->setBody('$model = new Generator();
+    $data["Generator"] = $model->getGenerator();
+    echo view("Generator_view",$data);');
+
+    $class->addMethod('GeneratorAdd')
         ->addComment("Description of class.\n")
         ->addComment('@Created by github.com/A2RJ')
-        ->setBody('$model = new Generator();');
+        ->setBody('echo view("add_product_view");');
 
-    $class->addMethod('Generator')
+    $class->addMethod('GeneratorSave')
         ->addComment("Description of class.\n")
         ->addComment('@Created by github.com/A2RJ')
         ->setBody("CRUD")
         ->addParameter('id');
 
     // For current file if want to concat the file 
-    // $current = file_get_contents('app/Http/Controllers/'.$fileName);
+    // $current = file_get_contents('app/Controllers/'.$fileName);
     // $current = "<?php 
     // " . $namespace;
     $current = "<?php
-namespace App\Http\Controllers; 
-" . $namespace ;
+    namespace App\Controllers; 
+    " . $namespace ;
 
-    file_put_contents('app/Http/Controllers/' . $fileName, $current);
+    file_put_contents('app/Controllers/' . $fileName, $current);
 
-    $file = file_get_contents('app/Http/Controllers/'.$fileName);
+    $file = file_get_contents('app/Controllers/'.$fileName);
     $replace = str_replace('Generator', $name['C'], $file);
-    file_put_contents('app/Http/Controllers/' . $fileName, $replace);
+    file_put_contents('app/Controllers/' . $fileName, $replace);
+    
+    $file = file_get_contents('app/Controllers/'.$fileName);
+    $replace = str_replace('CRUD', "Gunakan fungsi ini untuk generate crud sesuai dg Tabel MySQL", $file);
+    file_put_contents('app/Controllers/' . $fileName, $replace);
 
     echo "Create controller " . $controllerName;
 
