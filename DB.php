@@ -1,44 +1,31 @@
 <?php
-// Berhasil generate file berdasarkan tabel mysql
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbName = "laravel";
+// Berhasil generate file berdasarkan tabel database
+$mysqli = new mysqli("localhost", "root", "", "laravel");
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbName);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+/* check connection */
+if (mysqli_connect_errno()) {
+  printf("Connect failed: %s\n", mysqli_connect_error());
+  exit();
 }
 
-$qColumnNames = mysqli_query($conn, "SHOW COLUMNS FROM jurnal");
-$numColumns = mysqli_num_rows($qColumnNames);
+$query = "SHOW COLUMNS FROM jurnal";
+$result = $mysqli->query($query);
 
-$x = 0;
-while ($x < $numColumns)
-{
-    $colname = mysqli_fetch_row($qColumnNames);
-    $col[] = '"' . $colname[0] .'" => $this->input("' . $colname[0] .'"),';
-    $x++;
+while ($row = $result->fetch_array()) {
+  $rows[] = $row[0];
 }
 
-$conn->close();
-
-$filename = "mylog.php";
 $text = '<?php
 $data = ([' . "\n";
-foreach($col as $key => $value)
-{
-    $text .= $value."\n";
+foreach ($rows as $row => $value) {
+  $text .= '"' . $value . '" => $this->input("' . $value . '"),' . "\n";
 }
 $text .= "]);";
-file_put_contents($filename, $text);
 
-// Untuk menampilkan isi variabel kedalam file
-// $fh = fopen($filename, "w") or die("Could not open log file.");
-// fwrite($fh, $text) or die("Could not write file!");
-// untuk menampilkan isi variabel kedalam file
-// file_put_contents('filename.txt', var_export($col, true));
-// file_put_contents('filename.txt', print_r($col, true));
+file_put_contents("Output.php", $text);
+
+/* free result set */
+$result->close();
+
+/* close connection */
+$mysqli->close();
