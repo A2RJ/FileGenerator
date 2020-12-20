@@ -1,34 +1,45 @@
 <?php
 // php g.php -MyourFileName
 require 'vendor/autoload.php';
-$class = new Nette\PhpGenerator\ClassType('Demo');
-use Nette\PhpGenerator\Literal;
 
-$options = getopt("M:");
-$fileName = $options['M'] . '.php';
+$options = getopt("C:");
+$fileName = $options['C'] . 'Controller' . '.php';
 
-// Change for custom result
-$class
-	->setFinal()
-	->setExtends(BaseController::class)
-	->addTrait(App\Models\Jurnal::class)
-	->addComment("Description of class.\nSecond line\n")
-    ->addComment('@property-read Nette\Forms\Form $form')
-    ->addProperty('Jurnal');
-    // construct
-$method = $class->addMethod('__construct')
-    ->setBody('$Jurnal = new Jurnal();');
-$class->addMethod('index')
-->setBody('return $a + $b;')
-->addParameter('id');
+$controllerName = $options['C'] . 'Controller';
 
+$namespace = new Nette\PhpGenerator\PhpNamespace('Coba');
 
-$current = file_get_contents($fileName);
+$namespace->addUse('App\Http\Controllers\Controller');
+$namespace->addUse('App\Models\Coba');
 
-$current .= '<?php
-' . $class;
+$class = $namespace->addClass($controllerName)
+    ->addComment('@Created by github.com/A2RJ')
+    ->addComment("Description of class.")
+    ->addComment("Copy namespace below and replace namespace Coba;")
+    ->addComment("namespace App\Http\Controllers;");
+$class->setExtends('Coba\Controller');
+// ->addProperty('Demo');
+// ->addTrait('Bar\AliasedClass');
 
-// to generate PHP code simply cast to string or use echo:
-// echo $class;
-file_put_contents('yourDirectory'.$fileName, $current);
-?>
+$class->addMethod('__construct')
+    ->addComment("Description of class.\n")
+    ->addComment('@Created by github.com/A2RJ')
+    ->setBody('$model = new Coba();');
+
+$class->addMethod('coba')
+    ->addComment("Description of class.\n")
+    ->addComment('@Created by github.com/A2RJ')
+    ->setBody('return Coba::findAll();')
+    ->addParameter('id');
+
+// For current file if want to concat the file 
+// $current = file_get_contents('app/Http/Controllers/'.$fileName);
+// $current = "<?php 
+// " . $namespace;
+$current = "<?php 
+" . $namespace;
+
+file_put_contents('app/Http/Controllers/' . $fileName, $current);
+$file = file_get_contents('app/Http/Controllers/' . $fileName);
+$replace = str_replace('Coba', $options['C'], $file);
+file_put_contents('app/Http/Controllers/' . $fileName, $current);
