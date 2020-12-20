@@ -1,59 +1,60 @@
 <?php
-// php g.php -MyourFileName
+// php G.php -MVC=yourFileName
 // https://github.com/nette/php-generator
 require 'vendor/autoload.php';
 
 use Codedungeon\PHPCliColors\Color;
 
-echo "Enter your controller name: ";
-$handle = fopen("php://stdin", "r");
-$line = fgets($handle);
-if (trim($line)) {
+$name = getopt("MVC:");
 
-    $fileName = trim($line) . 'Controller' . '.php';
+if (sizeof($name) >= 3 and $name['C'] !== "") {
 
-    $controllerName = trim($line) . 'Controller';
+    $fileName = $name['C'] . 'Controller' . '.php';
 
-    $namespace = new Nette\PhpGenerator\PhpNamespace('Coba');
+    $controllerName = $name['C'] . 'Controller';
+
+    $namespace = new Nette\PhpGenerator\PhpNamespace('Generator');
 
     $namespace->addUse('App\Http\Controllers\Controller');
-    $namespace->addUse('App\Models\Coba');
+    $namespace->addUse('App\Models\Generator');
 
     $class = $namespace->addClass($controllerName)
         ->addComment('@Created by github.com/A2RJ')
         ->addComment("Description of class.")
-        ->addComment("Copy namespace below and replace namespace Coba;")
-        ->addComment("namespace App\Http\Controllers;");
-    $class->setExtends('Coba\Controller');
+        ->addComment("Copy namespace below and replace namespace Generator;")
+        ->addComment("namespace App\Http\Controllers;")
+        ->addComment("delete namespace Generator;");
+    $class->setExtends('Generator\Controller');
     // ->addProperty('Demo');
     // ->addTrait('Bar\AliasedClass');
 
     $class->addMethod('__construct')
         ->addComment("Description of class.\n")
         ->addComment('@Created by github.com/A2RJ')
-        ->setBody('$model = new Coba();');
+        ->setBody('$model = new Generator();');
 
-    $class->addMethod('coba')
+    $class->addMethod('Generator')
         ->addComment("Description of class.\n")
         ->addComment('@Created by github.com/A2RJ')
-        ->setBody('return Coba::findAll();')
+        ->setBody('return Generator::findAll();')
         ->addParameter('id');
 
     // For current file if want to concat the file 
     // $current = file_get_contents('app/Http/Controllers/'.$fileName);
     // $current = "<?php 
     // " . $namespace;
-    $current = "<?php 
-    " . $namespace;
+    $current = "<?php
+namespace App\Http\Controllers; 
+" . $namespace;
 
     file_put_contents('app/Http/Controllers/' . $fileName, $current);
-    $file = file_get_contents('app/Http/Controllers/' . $fileName);
-    $replace = str_replace('Coba', trim($line), $file);
-    file_put_contents('app/Http/Controllers/' . $fileName, $current);
-    echo "Create controller" . trim($line);
-    
+    $file = file_get_contents('app/Http/Controllers/'.$fileName);
+    $replace = str_replace('Generator', $name['C'], $file);
+    file_put_contents('app/Http/Controllers/' . $fileName, $replace);
+    echo "Create controller " . $controllerName;
+
     echo "\n";
-    echo Color::GREEN, 'Your controller was created', Color::RESET, PHP_EOL;
-}else{
-    echo Color::RED, 'Canceled', Color::RESET, PHP_EOL;
+    echo Color::GREEN, 'Your controller was created ' . $name['C'], Color::RESET, PHP_EOL;
+} else {
+    echo Color::RED, 'Example php G.php -MVC=ControllerName', Color::RESET, PHP_EOL;
 }
