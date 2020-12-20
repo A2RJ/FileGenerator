@@ -1,45 +1,59 @@
 <?php
 // php g.php -MyourFileName
+// https://github.com/nette/php-generator
 require 'vendor/autoload.php';
 
-$options = getopt("C:");
-$fileName = $options['C'] . 'Controller' . '.php';
+use Codedungeon\PHPCliColors\Color;
 
-$controllerName = $options['C'] . 'Controller';
+echo "Enter your controller name: ";
+$handle = fopen("php://stdin", "r");
+$line = fgets($handle);
+if (trim($line)) {
 
-$namespace = new Nette\PhpGenerator\PhpNamespace('Coba');
+    $fileName = trim($line) . 'Controller' . '.php';
 
-$namespace->addUse('App\Http\Controllers\Controller');
-$namespace->addUse('App\Models\Coba');
+    $controllerName = trim($line) . 'Controller';
 
-$class = $namespace->addClass($controllerName)
-    ->addComment('@Created by github.com/A2RJ')
-    ->addComment("Description of class.")
-    ->addComment("Copy namespace below and replace namespace Coba;")
-    ->addComment("namespace App\Http\Controllers;");
-$class->setExtends('Coba\Controller');
-// ->addProperty('Demo');
-// ->addTrait('Bar\AliasedClass');
+    $namespace = new Nette\PhpGenerator\PhpNamespace('Coba');
 
-$class->addMethod('__construct')
-    ->addComment("Description of class.\n")
-    ->addComment('@Created by github.com/A2RJ')
-    ->setBody('$model = new Coba();');
+    $namespace->addUse('App\Http\Controllers\Controller');
+    $namespace->addUse('App\Models\Coba');
 
-$class->addMethod('coba')
-    ->addComment("Description of class.\n")
-    ->addComment('@Created by github.com/A2RJ')
-    ->setBody('return Coba::findAll();')
-    ->addParameter('id');
+    $class = $namespace->addClass($controllerName)
+        ->addComment('@Created by github.com/A2RJ')
+        ->addComment("Description of class.")
+        ->addComment("Copy namespace below and replace namespace Coba;")
+        ->addComment("namespace App\Http\Controllers;");
+    $class->setExtends('Coba\Controller');
+    // ->addProperty('Demo');
+    // ->addTrait('Bar\AliasedClass');
 
-// For current file if want to concat the file 
-// $current = file_get_contents('app/Http/Controllers/'.$fileName);
-// $current = "<?php 
-// " . $namespace;
-$current = "<?php 
-" . $namespace;
+    $class->addMethod('__construct')
+        ->addComment("Description of class.\n")
+        ->addComment('@Created by github.com/A2RJ')
+        ->setBody('$model = new Coba();');
 
-file_put_contents('app/Http/Controllers/' . $fileName, $current);
-$file = file_get_contents('app/Http/Controllers/' . $fileName);
-$replace = str_replace('Coba', $options['C'], $file);
-file_put_contents('app/Http/Controllers/' . $fileName, $current);
+    $class->addMethod('coba')
+        ->addComment("Description of class.\n")
+        ->addComment('@Created by github.com/A2RJ')
+        ->setBody('return Coba::findAll();')
+        ->addParameter('id');
+
+    // For current file if want to concat the file 
+    // $current = file_get_contents('app/Http/Controllers/'.$fileName);
+    // $current = "<?php 
+    // " . $namespace;
+    $current = "<?php 
+    " . $namespace;
+
+    file_put_contents('app/Http/Controllers/' . $fileName, $current);
+    $file = file_get_contents('app/Http/Controllers/' . $fileName);
+    $replace = str_replace('Coba', trim($line), $file);
+    file_put_contents('app/Http/Controllers/' . $fileName, $current);
+    echo "Create controller" . trim($line);
+    
+    echo "\n";
+    echo Color::GREEN, 'Your controller was created', Color::RESET, PHP_EOL;
+}else{
+    echo Color::RED, 'Canceled', Color::RESET, PHP_EOL;
+}

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'e9cd4ccf18fabc2112cb8539f95704d6aa6f91cb',
+    'reference' => '772e19ac59bb7037d843fee0f91ebbbab7084bed',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'e9cd4ccf18fabc2112cb8539f95704d6aa6f91cb',
+      'reference' => '772e19ac59bb7037d843fee0f91ebbbab7084bed',
+    ),
+    'codedungeon/php-cli-colors' => 
+    array (
+      'pretty_version' => '1.12.0',
+      'version' => '1.12.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cb32f427dc4206a8a2b3d14b7c8ad4fb7c884f75',
     ),
     'nette/php-generator' => 
     array (

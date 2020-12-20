@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit1ba787fb75d76c349b26aa3b1fc300fd
 {
+    public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'Codedungeon\\PHPCliColors\\' => 25,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Codedungeon\\PHPCliColors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codedungeon/php-cli-colors/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
@@ -80,6 +94,8 @@ class ComposerStaticInit1ba787fb75d76c349b26aa3b1fc300fd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1ba787fb75d76c349b26aa3b1fc300fd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1ba787fb75d76c349b26aa3b1fc300fd::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit1ba787fb75d76c349b26aa3b1fc300fd::$classMap;
 
         }, null, ClassLoader::class);
