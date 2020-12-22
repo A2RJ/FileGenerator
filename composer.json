@@ -1,6 +1,0 @@
-{
-    "require": {
-        "nette/php-generator": "^3.5",
-        "codedungeon/php-cli-colors": "~1.0"
-    }
-}
