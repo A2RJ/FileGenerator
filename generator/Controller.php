@@ -37,4 +37,37 @@ class GeneratorController extends BaseController
         session()->setflashdata("pesan", "Generator berhasil ditambahkan.");
         return redirect()->to("/index.php/GeneratorController");
     }
+
+    public function update($id)
+    {
+        $data = [
+            'Generator' => $this->Generator->find($id),
+            'validation' => \Config\Services::validation()
+        ];
+        return view('Generator/update', $data);
+    }
+
+    public function saveUpdate()
+    {
+        $this->Generator->save([
+            STORE
+        ]);
+        session()->setflashdata("pesan", "Generator berhasil ditambahkan.");
+        return redirect()->to("/index.php/GeneratorController");
+    }
+    
+    public function delete($id)
+    {
+        $this->Generator->delete($id);
+        return redirect()->to("/index.php/GeneratorController");
+    }
+
+    public function detail($id)
+    {
+        $data = [
+            'Generator' => $this->Generator->find($id)
+        ];
+        
+        return view('Generator/detail', $data);
+    }
 }
