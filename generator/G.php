@@ -1,15 +1,25 @@
 <?php
-
 require __DIR__ . '/vendor/autoload.php';
-
 use Codedungeon\PHPCliColors\Color;
 
-$DBName = "event";
-$tableName = "event";
-$primaryKey = "id";
+echo "Nama database: ";
+$DBName = fopen("php://stdin", "r");
+$DBName = trim(fgets($DBName));
 
-// Berhasil generate file berdasarkan tabel database
-$mysqli = new mysqli("localhost", "root", "", $DBName);
+echo "Nama table: ";
+$tableName = fopen("php://stdin", "r");
+$tableName = trim(fgets($tableName));
+
+echo "Nama primary key: ";
+$primaryKey = fopen("php://stdin", "r");
+$primaryKey = trim(fgets($primaryKey));
+
+$host = "localhost";
+$userName = "root";
+$password = "";
+
+// Koneksi DB
+$mysqli = new mysqli($host, $userName, $password, $DBName);
 
 /* check connection */
 if (mysqli_connect_error()) {
