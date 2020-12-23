@@ -1,9 +1,9 @@
 <?php
-$table = "Generator";
+$table = "tabelsquad";
 $id_table = "id";
 
 // Berhasil generate file berdasarkan tabel database
-$mysqli = new mysqli("localhost", "root", "", "ci4");
+$mysqli = new mysqli("localhost", "root", "", "event");
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -76,7 +76,7 @@ if (is_dir($dir) == true && is_dir($dirT) == true) {
     file_put_contents('../app/Views/' . $table . "/index.php", $replace);
 
     $tbody = '';
-    foreach ($rows as $row => $value) {
+    foreach (array_slice($rows, 1) as $row => $value) {
         $tbody .= '<td class="text-center"><?= $p["' . $value . '"]; ?></td>' . "\n";
     }
     $tbody .= '

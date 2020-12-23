@@ -6,9 +6,6 @@
         <div class="col-md-12">
             <div class="card">
                 <h2>Detail Variable</h2>
-                <!-- <div class="card-body">
-                    <h5 class="card-title"><?= $Generator['id']; ?></h5>
-                </div> -->
                 <ul class="list-group list-group-flush">
                     DETAIL
                 </ul>
