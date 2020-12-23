@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
         <div class="container">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -29,6 +30,7 @@
             </div>
         </div>
     </nav>
+
     <?= $this->renderSection('content'); ?>
 
     <!-- Optional JavaScript; choose one of the two! -->
