@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h2 class="my-3 ml-4">Form Tambah Data Variable</h2>
 
-                    <form action="/index.php/VariableController/save" method="post" enctype="multipart/form-data">
+                    <form action="/VariableController/save" method="post" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
                         FORM
                         <div class="form-group row">

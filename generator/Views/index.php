@@ -8,6 +8,13 @@
                 <div class="card-body">
                     <h2 class="card-title">Variable</h2>
                     <a href="/VariableController/add" class="btn btn-success">Tambah</a>
+
+                    <?php if (session()->getFlashdata('pesan')) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <?= session()->getFlashdata('pesan'); ?>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>

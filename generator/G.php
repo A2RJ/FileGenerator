@@ -113,6 +113,25 @@ function Controllers($tableName, $rows)
                 $fileController
             );
             file_put_contents('../app/Controllers/' . $tableName . "Controller.php", $replace);
+
+            // Fungsi validasi
+            $validation = '';
+            foreach ($rows as $row => $value) {
+                $validation .= "'". $value . "' => [
+                'rules' => 'required[" . $tableName . ".". $value ."]',
+                'errors' => [
+                    'required' => '". $value ." harus diisi.'
+                ]
+            ]," . "\n";
+            }
+
+            $fileController = file_get_contents('../app/Controllers/' . $tableName . "Controller.php");
+            $replace = str_replace(
+                "VALIDATES",
+                $validation,
+                $fileController
+            );
+            file_put_contents('../app/Controllers/' . $tableName . "Controller.php", $replace);
         }
         echo Color::GREEN, 'Your ' . $tableName . "Controller.php was created", Color::RESET, PHP_EOL;
     }

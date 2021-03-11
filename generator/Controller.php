@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\GeneratorModel;
@@ -31,11 +32,17 @@ class GeneratorController extends BaseController
 
     public function save()
     {
+        if (!$this->validate([
+            VALIDATES
+        ])) {
+            return redirect()->to('/GeneratorController/add')->withInput();
+        }
+
         $this->Generator->save([
             SAVE
         ]);
         session()->setflashdata("pesan", "Generator berhasil ditambahkan.");
-        return redirect()->to("/index.php/GeneratorController");
+        return redirect()->to("/GeneratorController");
     }
 
     public function update($id)
@@ -49,17 +56,23 @@ class GeneratorController extends BaseController
 
     public function saveUpdate()
     {
+        if (!$this->validate([
+            VALIDATES
+        ])) {
+            return redirect()->to('/GeneratorController/update/' . $this->request->getVar('id'))->withInput();
+        }
+
         $this->Generator->save([
             STORE
         ]);
         session()->setflashdata("pesan", "Generator berhasil ditambahkan.");
-        return redirect()->to("/index.php/GeneratorController");
+        return redirect()->to("/GeneratorController");
     }
-    
+
     public function delete($id)
     {
         $this->Generator->delete($id);
-        return redirect()->to("/index.php/GeneratorController");
+        return redirect()->to("/GeneratorController");
     }
 
     public function detail($id)
@@ -67,7 +80,7 @@ class GeneratorController extends BaseController
         $data = [
             'Generator' => $this->Generator->find($id)
         ];
-        
+
         return view('Generator/detail', $data);
     }
 }
