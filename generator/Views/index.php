@@ -21,6 +21,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     THEAD
+                                    <th scope="col" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -189,6 +189,7 @@ function Views($tableName, $primaryKey, $rows)
                 <a href="/VariableController/detail/<?= $p["' . $rows[0] . '"]; ?>" class="btn btn-success">Detail</a>
                 <a href="/VariableController/delete/<?= $p["' . $rows[0] . '"]; ?>" class="btn btn-danger">Delete</a>
             </td>';
+            
             $file = file_get_contents('../app/Views/' . $tableName . "/index.php");
             $replace = str_replace('TBODY', $tbody, $file);
             file_put_contents('../app/Views/' . $tableName . "/index.php", $replace);
