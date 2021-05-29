@@ -8,3 +8,6 @@ Run npm i <br>
 Change template with your template file <br>
 Run node index.js fileName .exetension <br>
 ex: node index.js ReactNative .js <br>
+
+ - Create migration from mysql table
+ - migration to mysql table
